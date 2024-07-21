@@ -169,7 +169,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebookk</h2>
+      <h2>Phonebook</h2>
       <Notification message={errorMessage.message} type={errorMessage.type} />
       < Filter search={search} handleSearch={handleSearch}/> 
       <h3>add a new</h3>
