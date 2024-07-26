@@ -92,16 +92,17 @@ const App = () => {
   const addNewPerson = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target)
+
     
     const personObject = {
       name: newName,
       number: newNumber,
       id: "id" + Math.random().toString(16).slice(2)
     }
-
+   
     const duplicate = persons.find(person => person.name === newName)
     if (duplicate) {
-     if (window.confirm(
+      if (window.confirm(
         `${newName} is already added to phonebook, replace the old number with a new one?`))
       
       {const updatedPerson = { ...duplicate, number: newNumber }
@@ -116,7 +117,7 @@ const App = () => {
       })
       .catch(error => {
         console.error(error)
-        setMessage(`Information of ${newName} has already been removed from server`, 'error')
+        setMessage(error.response.data.error, 'error')
       })}
     } else {
     personService
@@ -127,6 +128,9 @@ const App = () => {
       setNewName('')
       setNewNumber('')
       setMessage(`Added ${newName}`, 'success')
+    }).catch(error => {
+      console.log(error.response.data, 'error')
+      setMessage(error.response.data.error, `error`)
     })
     }
   }
